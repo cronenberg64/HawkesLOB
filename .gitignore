@@ -8,8 +8,10 @@ __pycache__/
 data/*.csv
 data/*.zip
 
-# Outputs (regenerable)
-outputs/
+# Outputs (Track visuals, ignore data)
+outputs/*
+!outputs/*.png
+!outputs/*.gif
 
 # Jupyter
 .ipynb_checkpoints/

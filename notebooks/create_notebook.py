@@ -264,14 +264,43 @@ cells.append(nbf.v4.new_code_cell(
     'plt.show()'
 ))
 
-# --- Summary ---
+# --- Section: High-Density Technical Visualization ---
 cells.append(nbf.v4.new_markdown_cell(
-    "## 4. Summary\n"
+    "## 4. Technical Visualization Suite\n"
     "\n"
-    "| Dimension | KS stat | KS p-value | LB stat | LB p-value | KS verdict | LB verdict |\n"
-    "|-----------|---------|------------|---------|------------|------------|------------|\n"
+    "We move beyond simple line graphs to high-density technical signals inspired by signal processing and professional trading desks."
+))
+
+cells.append(nbf.v4.new_code_cell(
+    "from src.viz import (\n"
+    "    animate_intensity_stream, \n"
+    "    plot_intensity_spectrogram, \n"
+    "    plot_bookmap, \n"
+    "    plot_cascade_multiples\n"
+    ")\n"
     "\n"
-    "*(Filled programmatically below)*"
+    "t_start = 300.0\n"
+    "duration = 60.0\n"
+    "ORDERBOOK_CSV = '../data/GOOG_2012-06-21_34200000_57600000_orderbook_10.csv'\n"
+    "\n"
+    "# 1. Intensity Spectrogram (Log-Scale)\n"
+    "plot_intensity_spectrogram(timestamps, result, t_start, duration, \n"
+    "                           save_path='../outputs/intensity_spectrogram.png')\n"
+    "\n"
+    "# 2. Bookmap-style LOB Heatmap\n"
+    "plot_bookmap(ORDERBOOK_CSV, MESSAGE_CSV, t_start, duration, \n"
+    "             save_path='../outputs/bookmap.png')\n"
+    "\n"
+    "# 3. Impulse Response Matrix (Small Multiples)\n"
+    "plot_cascade_multiples(result, duration=3.0, \n"
+    "                       save_path='../outputs/cascade_multiples.png')\n"
+    "\n"
+    "print('Technical visualizations generated in outputs/')"
+))
+
+# --- Section: Summary ---
+cells.append(nbf.v4.new_markdown_cell(
+    "## 5. Summary & Model Diagnostics"
 ))
 
 cells.append(nbf.v4.new_code_cell(
@@ -287,8 +316,7 @@ cells.append(nbf.v4.new_code_cell(
     '    print(f\'{label:>5s} | {g["ks_stat"]:8.4f} | {g["ks_p"]:8.4f} | \'\n'
     '          f\'{g["lb_stat"]:8.2f} | {g["lb_p"]:8.4f} | {ks_v:5s} | {lb_v}\')\n'
     'print("="*70)\n'
-    'print("\\nα = 0.05 significance level")\n'
-    'print(f"Spectral radius: {result[\'spectral_radius\']:.4f}")'
+    'print(f"\\nSpectral radius: {result[\'spectral_radius\']:.4f}")'
 ))
 
 nb.cells = cells
