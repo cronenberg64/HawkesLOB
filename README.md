@@ -4,8 +4,8 @@
 
 A rigorous fit of a multivariate Hawkes process to limit order book (LOB) event data, featuring residual analysis via the time-rescaling theorem and high-density technical visualizations.
 
-### Dynamic Intensity Stream (Hero)
-![Hawkes Intensity Stream](outputs/hero_intensity.gif)
+### Dynamic Intensity Stream
+![Hawkes Intensity Stream](outputs/intensity_stream.gif)
 *60-second snapshot of LOB events. Top: Stacked conditional intensities λᵢ(t). Bottom: Actual event tick marks (Market Buys, Market Sells, Limit Additions).*
 
 ---
@@ -63,7 +63,7 @@ The matrix below shows the average excitation weights over the full trading day.
 ### The Model
 We use a multivariate Hawkes process with exponential kernels:
 
-$$\lambda_i(t) = \mu_i + \sum_j \alpha_{ij} \sum_{t_{jk}<t} \beta \cdot e^{-\beta(t-t_{jk})}$$
+$$\lambda_i(t) = \mu_i + \sum_{j} \alpha_{ij} \sum_{t_{jk} < t} \beta \exp \left[ -\beta (t - t_{jk}) \right]$$
 
 Where:
 - $\mu_i$: Baseline intensity of event type $i$.
@@ -108,7 +108,7 @@ python notebooks/create_notebook.py
 ```
 
 **B. Run Global Fit & Primary Visuals**
-Fits the 4D Hawkes model and generates the primary assets (Hero GIF, Spectrogram, Bookmap, Cascade Matrix).
+Fits the 4D Hawkes model and generates the primary assets (Intensity GIF, Spectrogram, Bookmap, Cascade Matrix).
 ```bash
 python src/model.py
 ```

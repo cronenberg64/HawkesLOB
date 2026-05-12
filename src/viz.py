@@ -115,7 +115,7 @@ def plot_excitation_heatmap(alpha: np.ndarray, labels: list[str], ax=None, save_
     return im
 
 def animate_intensity_stream(ts_dict: dict, fit_result: dict, t_start: float, duration: float, 
-                             fps: int = 20, save_path: str = "outputs/hero_intensity.gif"):
+                             fps: int = 20, save_path: str = "outputs/intensity_stream.gif"):
     """Headline visualization: Stacked intensity stream with event ticks."""
     set_technical_style()
     t_end = t_start + duration
@@ -157,7 +157,7 @@ def animate_intensity_stream(ts_dict: dict, fit_result: dict, t_start: float, du
         return lines
 
     ani = FuncAnimation(fig, update, frames=int(duration * fps), blit=True)
-    print(f"Saving hero animation to {save_path}...")
+    print(f"Saving intensity stream animation to {save_path}...")
     ani.save(save_path, writer=PillowWriter(fps=fps))
     plt.close()
 
