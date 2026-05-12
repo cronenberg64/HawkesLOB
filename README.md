@@ -29,7 +29,7 @@ This project implements a 4-dimensional Hawkes process to quantify the self-exci
 ### 1. The Hawkes Model
 We use a multivariate Hawkes process with exponential kernels to capture the conditional intensity:
 
-![Hawkes Equation](outputs/hawkes_equation.png)
+$$\lambda_i(t) = \mu_i + \sum_{j} \alpha_{ij} \sum_{t_{jk} < t} \beta \exp \left[ -\beta (t - t_{jk}) \right]$$
 
 *   **$\mu_i$**: Baseline intensity (exogenous arrivals).
 *   **$\alpha_{ij}$**: Excitation weight (expected number of secondary events).
