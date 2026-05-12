@@ -36,26 +36,26 @@ $$\lambda_i(t) = \mu_i + \sum_{j} \alpha_{ij} \sum_{t_{jk} < t} \beta \exp \left
 *   **$\beta$**: Shared decay rate (inverse half-life of memory).
 
 ### 2. Validation & Results
-Under the true model, the compensator-transformed inter-event times must be i.i.d. $Exp(1)$. We report the following goodness-of-fit metrics for the first hour of trading:
+Under the true model, the compensator-transformed inter-event times must be i.i.d. $Exp(1)$. We report the following metrics for the **first hour of trading**—intentionally chosen as the most volatile and hardest-to-model regime (the market open):
 
 | Dimension | KS Stat | KS p-val | LB Stat | LB p-val | Verdict |
 |:--- |:--- |:--- |:--- |:--- |:--- |
-| **MB** | 0.4705 | < 0.001 | 23.61 | 0.0087 | Fail (D) |
-| **MS** | 0.5226 | < 0.001 | 10.36 | 0.4096 | Pass (LB) |
+| **MB** | 0.4705 | < 0.001 | 23.61 | 0.0087 | Fail (D, LB) |
+| **MS** | 0.5226 | < 0.001 | 10.36 | 0.4096 | **Fail (D), Pass (LB)** |
 | **LA_B** | 0.3421 | < 0.001 | 36.77 | < 0.001 | Fail (D, LB) |
 | **LA_S** | 0.3689 | < 0.001 | 41.33 | < 0.001 | Fail (D, LB) |
 
-### 3. Statistical Honesty & Limitations
+### 3. Statistical Considerations
 The systematic failure of the Kolmogorov-Smirnov (KS) tests highlights the limitations of first-order exponential Hawkes models for LOB data:
 *   **Kernel Misspecification**: Real LOB memory often follows a **Power Law** rather than a simple exponential decay.
-*   **Missing Covariates**: The 4-dimensional model ignores **cancellations** and **mid-price returns**, which are critical drivers of intensity in real-world microstructure.
-*   **Stationarity**: While the spectral radius $\rho < 1$ guarantees global stationarity, local "bursts" often exhibit temporary near-critical behavior that standard MLE struggles to capture.
+*   **The MS Anomaly**: Interestingly, Market Sells (MS) pass the Ljung-Box test but fail the KS test. This suggests the model successfully captures the **temporal independence (autocorrelation structure)** but fails to model the **marginal distribution**, a classic indicator that the kernel shape is misspecified while the cross-excitation weights are approximately correct.
+*   **Missing Covariates**: The model currently ignores **cancellations** and **mid-price returns**, which drive significant intensity variance in real microstructure.
 
 ---
 
-## Technical Visualization Gallery
+## Visualizations
 
-The repository prioritizes **legible, dense, and technical** 2D signals that provide actionable insights into market microstructure.
+The repository prioritizes legible, dense, and technical 2D signals that provide actionable insights into market microstructure.
 
 ### 1. Intensity Spectrogram
 Visualizes Hawkes conditional intensity as a time-frequency spectrogram, identifying bursts of cross-excitation activity across all 4 event types.
